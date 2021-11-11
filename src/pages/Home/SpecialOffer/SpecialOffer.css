@@ -1,0 +1,10 @@
+.image-hover-effect-zoom img {
+  transform-origin: 50% 50%;
+  transition: transform 2s, filter 3s ease-in;
+  filter: brightness(150%);
+}
+
+.image-hover-effect-zoom:hover img {
+  filter: brightness(100%);
+  transform: scale(1.05);
+}
