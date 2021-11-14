@@ -1,95 +1,95 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import {Container, Card, Grid, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, Button} from '@mui/material';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import React, { useEffect, useState } from 'react';
+import {Container, Card, Grid, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, InputBase, Button, Paper} from '@mui/material';
 import { Box } from '@mui/system';
-import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import Product from '../Product/Product';
 import { NavLink } from 'react-router-dom';
+import { styled, alpha } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search';
 
-
-const actionBtnStyle = {
-    color: "#650460",
-    fontSize: "30px",
-}
-
-// TootTip Info Title ...
-const TootTip = styled(({ className, ...props }) => (
-  <Tooltip {...props} arrow classes={{ popper: className }} />
-))(({ theme }) => ({
-  [`& .${tooltipClasses.arrow}`]: {
-    color: theme.palette.common.black,
+//  Start Search bar handle process ... 
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.secondary.dark, 0.8),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.secondary.dark, 0.9),
   },
-  [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: theme.palette.common.black,
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(3),
+    width: 'auto',
   },
 }));
 
-const Products = () => {
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'start',
+  color: "#fff"
+}));
 
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
+//  End Search bar handle process ... 
+
+
+const Products = () => {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const url = `http://localhost:5001/products`;
+        fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            setProducts(result.slice(0, 6));
+        });
+
+    }, []);
 
     return (
         <Container sx={{ mt: 20 }}>
             <Box>
                 <Typography variant="h5" sx={{ borderBottom: "2px solid #6A0460" }}>All Time Sales: </Typography>
             </Box>
-            <Box sx={{ mt: 5, background: "#fff", p: 5, borderRadius: 3, }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-                    <Typography variant="h5" sx={{  }}>Security Cameras & Systems: </Typography>
-                    <Button color="secondary" variant="outlined" >View All</Button>
+            <Paper sx={{ mt: 5, background: "#fff", p: 5, borderRadius: 3, }}>
+                <Box sx={{ display: "flex", justifyContent: "space-between", mb: 5 }}>
+                    <Typography variant="h6" sx={{  }}>Security Cameras & Systems: </Typography>
+                    <Search>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </Search>
+                    <NavLink to='/explore-products'>
+                        <Button color="secondary" variant="outlined" >View All</Button>
+                    </NavLink>
                 </Box>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6} md={4} lg={4}>
-                        <Card sx={{ maxWidth: 345, background: "linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%)" }}>
-                            <CardHeader
-                                sx={{ color: "#fff" }}
-                                avatar={
-                                <Avatar src="https://i.ibb.co/qWYHqZh/37be412e2234759b9e90cbd9ce71beab.jpg" aria-label="CC Cameras"></Avatar>
-                                }
-                                action={
-                                <IconButton aria-label="settings">
-                                    <MoreVertIcon style={actionBtnStyle} />
-                                </IconButton>
-                                }
-                                title="V380 Waterproof Night Vision Outdoor Full HD Wifi Camera"
-                                subheader="Lunch: September 14, 2021"
-                            />
-                            <NavLink to="/">
-                                <CardMedia
-                                    component="img"
-                                    height="260"
-                                    image="https://i.ibb.co/qWYHqZh/37be412e2234759b9e90cbd9ce71beab.jpg"
-                                    alt="Paella dish"
-                                />
-                            </NavLink>
-                            <CardContent>
-                                <Typography variant="body2" color="#fff"><strong>Description: </strong><br />
-                                Resolution: 2 MP,; Device : Mobile / computer / Laptop / Tab; Image Resolution: 1080P HD; Apps : V 380 Audio; System : Speaking & Listening ...
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{ display: "flex", justifyContent: "space-between"  }}>
-                                <IconButton aria-label="add to cart">
-                                    <TootTip title="Add To Cart">
-                                        <ShoppingBasketOutlinedIcon style={actionBtnStyle} />
-                                    </TootTip>
-                                </IconButton>
-                                <IconButton aria-label="add to favorites">
-                                    <TootTip title="Add To Favorite">
-                                        <FavoriteIcon title="" style={actionBtnStyle}  />
-                                    </TootTip>
-                                </IconButton>
-                                <IconButton aria-label="view">
-                                    <TootTip title="View For Shopping">
-                                        <VisibilityOutlinedIcon title="" style={actionBtnStyle}  />
-                                    </TootTip>
-                                </IconButton>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                <Grid container spacing={3}>
+                    {
+                        products.map(product => <Product key={product?._id} product={product}></Product>)
+                    }
                 </Grid>
-            </Box>
+            </Paper>
         </Container>
     );
 };

@@ -25,6 +25,7 @@ const CustomerReview = () => {
                             sx={{ width: "60px" }}
                             image={customerReviewImg}
                             alt="Customer Image"
+                            
                             />
                             
                             <CardContent sx={{ textAlign: "left" }}>

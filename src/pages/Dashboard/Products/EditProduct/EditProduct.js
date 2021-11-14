@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Box, Button, Typography, TextField, TextareaAutosize, CircularProgress, Alert, IconButton, Fab } from '@mui/material';
-import { useForm } from "react-hook-form";
+import { Container, Grid, Box, Button, Typography, TextField, TextareaAutosize, CircularProgress, Alert, IconButton, Fab, Input } from '@mui/material';
+import { Controller, useForm } from "react-hook-form";
 import { useParams } from 'react-router-dom';
 
 const EditProduct = () => {
     const {id} = useParams();
     const [product, setProduct] = useState({});
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+    const { control, register, handleSubmit, watch, formState: { errors }, reset } = useForm({});
     // const generateKey = `${Math.ceil(Math.random(9999))}_${ new Date().getTime() }`;
-    const _id = '618d74a9907a63097394ddb3';
+    // const _id = '618e12fb017b15008c7645f9';
 
+    // Fetch data from database ...
     useEffect(() => {
-        const url = `http://localhost:5001/products/edit/${_id}`
+        const url = `http://localhost:5001/products/edit/${id}`
         fetch(url)
         .then(res => res.json())
         .then(result => {
@@ -21,28 +22,38 @@ const EditProduct = () => {
 
     }, []);
 
+    const handleFormInputChange = (e) => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const updateFormInputData = {...product};
+        updateFormInputData[field] = value;
+        setProduct(updateFormInputData);   
+    }
 
+    // Update data to database ... 
     const onSubmit = (data) => {
+        data = {...product};
+        data.updatedAt = new Date().toLocaleDateString();
         console.log(data);
-        // data.key = generateKey;
-        // const url = `http://localhost:5001/products/create`
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // })
-        // .then(res => res.json())
-        // .then(result => {
-        //     console.log(result);
-            // if(result.modifiedCount) {
-            //     alert("Data Updated...");
-            // }
-            // else {
-            //     alert("Something Wrong!!!");
-            // }
-        // });
+        const url = `http://localhost:5001/products/update/${id}`
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(result => {
+            console.log(result);
+            if(result.modifiedCount) {
+                // reset();
+                alert("Data Updated...");
+            }
+            else {
+                alert("Something Wrong!!!");
+            }
+        });
     }
 
     return (
@@ -50,7 +61,7 @@ const EditProduct = () => {
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2} sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     
-                    <Grid item xs={12} sm={12} md={8}>
+                    <Grid item xs={12} sm={12} md={9}>
                         <Box>
                             <Typography id="transition-modal-title" variant="h5" component="h2" sx={{ fontWeight: "bold" }}>
                                 Edit Product
@@ -70,8 +81,9 @@ const EditProduct = () => {
                                     color="secondary"
                                     placeholder="Enter Title"
                                     maxRows={4}
-                                    {...register("title", { required: true })}
-                                    value={product?.title}
+                                    {...register("title")}
+                                    value={product?.title || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -83,8 +95,9 @@ const EditProduct = () => {
                                     type="number"
                                     color="secondary"
                                     placeholder="Enter Price"
-                                    {...register("price", { required: true })}
-                                    value={product?.price}
+                                    {...register("price")}
+                                    value={product?.price || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -95,8 +108,9 @@ const EditProduct = () => {
                                     type="number"
                                     color="secondary"
                                     placeholder="Enter Package Price"
-                                    {...register("packagePrice", { required: true })}
-                                    value={product?.packagePrice}
+                                    {...register("packagePrice")}
+                                    value={product?.packagePrice || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -107,8 +121,9 @@ const EditProduct = () => {
                                     type="number"
                                     color="secondary"
                                     placeholder="Enter Rating"
-                                    {...register("rating", { required: true })}
-                                    value={product?.rating}
+                                    {...register("rating")}
+                                    value={product?.rating || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -119,8 +134,9 @@ const EditProduct = () => {
                                     type="text"
                                     color="secondary"
                                     placeholder="Enter Menufacturer"
-                                    {...register("manufacturer", { required: true })}
-                                    value={product?.manufacturer}
+                                    {...register("manufacturer")}
+                                    value={product?.manufacturer || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -131,8 +147,9 @@ const EditProduct = () => {
                                     type="text"
                                     color="secondary"
                                     placeholder="Enter Country"
-                                    {...register("madeBy", { required: true })}
-                                    value={product?.madeBy}
+                                    {...register("madeBy")}
+                                    value={product?.madeBy || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -144,8 +161,9 @@ const EditProduct = () => {
                                     rows={3}
                                     color="secondary"
                                     placeholder="Enter Short Description"
-                                    {...register("shortDesc", { required: true })}
-                                    value={product?.shortDesc}
+                                    {...register("shortDesc")}
+                                    value={product?.shortDesc || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -157,8 +175,9 @@ const EditProduct = () => {
                                     color="secondary"
                                     placeholder="Enter Image Url/Path"
                                     maxRows={4}
-                                    {...register("imageUrl", { required: true })}
-                                    value={product?.imageUrl}
+                                    {...register("imageUrl")}
+                                    value={product?.imageUrl || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
@@ -170,8 +189,9 @@ const EditProduct = () => {
                                     rows={5}
                                     color="secondary"
                                     placeholder="Enter Long Description"
-                                    {...register("longDesc", { required: true })}
-                                    value={product?.longDesc}
+                                    {...register("longDesc")}
+                                    value={product?.longDesc || ''}
+                                    onChange={handleFormInputChange}
                                     InputLabelProps={{
                                         shrink: true,
                                     }}

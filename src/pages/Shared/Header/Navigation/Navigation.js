@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { AppBar, Toolbar, IconButton, InputBase, Menu, MenuItem, Badge, Container, Button } from '@mui/material';
+import { AppBar, Toolbar, IconButton, InputBase, Menu, MenuItem, Badge, Container, Button, CardMedia } from '@mui/material';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { Box } from '@mui/system';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -10,7 +11,8 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import TravelExploreOutlinedIcon from '@mui/icons-material/TravelExploreOutlined';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import logo from './../../../../assets/images/logo/logo_5_160x.png';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+import useAuth from '../../../../assets/hooks/useAuth';
 
 //  Start Search bar handle process ... 
 const Search = styled('div')(({ theme }) => ({
@@ -48,13 +50,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '30ch',
+      width: '25ch',
     },
   },
 }));
-//  End Search bar handle process ... 
+//  End Search bar handle process ...
+
+// TootTip Info Title ...
+const TootTip = styled(({ className, ...props }) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
+
+
 
 const Navigation = () => {
+    const {user, userLogoutProcess} = useAuth();
+    const location = useLocation();
+    const history = useHistory();
+    // console.log(user);
+
+    // User Logout Process ... 
+    const handleLogoutProcess = (e) => {
+        e.preventDefault();
+        userLogoutProcess(location, history);
+    }
 
     // Start Menu Items with icons handle process ... 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -108,7 +134,7 @@ const Navigation = () => {
                 </NavLink>
             </MenuItem>
             <MenuItem onClick={handleMenuClose}>
-                <Button color="secondary" >Logout</Button>
+                <Button onClick={handleLogoutProcess} color="secondary" >Logout</Button>
             </MenuItem>
         </Menu>
     );
@@ -179,22 +205,43 @@ const Navigation = () => {
     // End Menu Items with icons handle process ...   
          
 
-
     return (
         
         <Container>
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static" elevation={3} sx={{ background: "#fff", padding: "10px"
     }}>
-                        <Toolbar>
-                            <Box sx={{ display: { md: 'flex' } }}>
-                                <NavLink to="/" style={{ color: "#fff", textDecoration: "none" }}>
-                                    <img width="150" src={logo} alt="Logo" />
+                    <Toolbar>
+                        <Box sx={{ display: { md: 'flex' } }}>
+                            <NavLink to="/" style={{ color: "#fff", textDecoration: "none" }}>
+                                <img width="150" src={logo} alt="Logo" />
+                            </NavLink>
+                        </Box>
+
+                        {/* <Box sx={{ flexGrow: 1 }} /> */}
+
+                        <NavLink to="/home" style={{ color: "#000", textDecoration: "none" }}>
+                            <Button color="secondary" >Home</Button>
+                        </NavLink>
+                        <NavLink to="/explore-products" style={{ color: "#000", textDecoration: "none" }}>
+                            <Button color="secondary">Explore</Button>
+                        </NavLink>
+                        {
+                            !user?.email 
+                            &&
+                            <Box>
+                                <NavLink to="/login" style={{ color: "#000", textDecoration: "none" }}>
+                                    <Button color="secondary" >Login</Button>
+                                </NavLink>
+                                <NavLink to="/registration" style={{ color: "#000", textDecoration: "none" }}>
+                                    <Button color="secondary">Register</Button>
                                 </NavLink>
                             </Box>
+                        }
 
-                            {/* <Box sx={{ flexGrow: 1 }} /> */}
-
+                        <Box sx={{ flexGrow: 1 }} />
+                        
+                        <Box sx={{ display: { xs: "none", md: 'flex' }, alignItems: "center" }}>
                             <Search>
                                 <SearchIconWrapper>
                                     <SearchIcon />
@@ -204,69 +251,68 @@ const Navigation = () => {
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
                             </Search>
+                            {
+                                user?.email 
+                                &&
+                                <Box>
+                                    <IconButton
+                                        size="large"
+                                        edge="end"
+                                        aria-label="account of current user"
+                                        aria-controls={menuId}
+                                        aria-haspopup="true"
+                                        onClick={handleProfileMenuOpen}
+                                        color="secondary"
+                                    >
+                                        
+                                        {/* <AccountCircle /> */}
 
-                            <Box sx={{ flexGrow: 1 }} />
-                            
-                            <Box sx={{ display: { xs: "none", md: 'flex' }, alignItems: "center" }}>
-                                <NavLink to="/home" style={{ color: "#000", textDecoration: "none" }}>
-                                    <Button color="secondary" >Home</Button>
-                                </NavLink>
-                                <NavLink to="/appointment" style={{ color: "#000", textDecoration: "none" }}>
-                                    <Button color="secondary">Explore</Button>
-                                </NavLink>
-                                <NavLink to="/login" style={{ color: "#000", textDecoration: "none" }}>
-                                    <Button color="secondary" >Login</Button>
-                                </NavLink>
-                                <NavLink to="/registration" style={{ color: "#000", textDecoration: "none" }}>
-                                    <Button color="secondary">Register</Button>
-                                </NavLink>
-                                <IconButton
-                                    size="large"
-                                    edge="end"
-                                    aria-label="account of current user"
-                                    aria-controls={menuId}
-                                    aria-haspopup="true"
-                                    onClick={handleProfileMenuOpen}
-                                    color="secondary"
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                                <IconButton
-                                    size="large"
-                                    aria-label="show 17 new notifications"
-                                    color="secondary"
-                                >
-                                    <Badge badgeContent={17} color="error">
-                                        <ShoppingCartOutlinedIcon />
-                                    </Badge>
-                                </IconButton>
-                            </Box>
-                            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                                <IconButton
+                                        <TootTip title={user?.displayName}>
+                                            <CardMedia
+                                            component="img"
+                                            sx={{ width: "40px", borderRadius: "50%" }}
+                                            image={user?.photoURL}
+                                            />
+                                        </TootTip>
+                                    </IconButton>
+                                </Box>
+                            }
+                            <IconButton
                                 size="large"
-                                aria-label="show more"
-                                aria-controls={mobileMenuId}
-                                aria-haspopup="true"
-                                onClick={handleMobileMenuOpen}
+                                aria-label="show 17 new notifications"
                                 color="secondary"
-                                >
-                                <MoreIcon />
-                                </IconButton>
-                            </Box>
-                            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                                <IconButton
-                                    size="large"
-                                    edge="start"
-                                    aria-label="open drawer"
-                                    sx={{ mr: 2 }}
-                                    color="secondary"
-                                >
-                                    <MenuIcon />
-                                </IconButton>
-                            </Box>
-                            {renderMobileMenu}
-                            {renderMenu}
-                        </Toolbar>
+                            >
+                                <Badge badgeContent={17} color="error">
+                                    <ShoppingCartOutlinedIcon />
+                                </Badge>
+                            </IconButton>
+                        </Box>
+                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                            size="large"
+                            aria-label="show more"
+                            aria-controls={mobileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleMobileMenuOpen}
+                            color="secondary"
+                            >
+                            <MoreIcon />
+                            </IconButton>
+                        </Box>
+                        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                            <IconButton
+                                size="large"
+                                edge="start"
+                                aria-label="open drawer"
+                                sx={{ mr: 2 }}
+                                color="secondary"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        </Box>
+                        {renderMobileMenu}
+                        {renderMenu}
+                    </Toolbar>
                 </AppBar>
             </Box>
         </Container>

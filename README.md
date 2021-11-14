@@ -1,3 +1,54 @@
+# Started with Built Web Development Apps By Using React Js.
+
+## Project Name: # CCTV Cameras "CC Splash Shutter" shopping related website Client side project.
+
+## Description:
+
+This project is for those who love to browse and buy products online. This project creates for online purchase/order CCTV cameras & systems & customer dashboard for see his all orders, shipping status, create feedback for products review, payment system etc.
+
+## Features:
+
+- First of all, any user can visit this site to see, know about CCTV camera and its system and order online if required.
+- User explore all products.
+- User choose his product & see product details.
+- He create account, login & purchase for ordering products. And accessing his dashboard for orders summary & shipping location.
+- And his dashboard will be able to create its own responses to the product and see his review on the home page.
+- Website owner (Admin user) create and login his account to access his dashboard.
+- He create, edit, delete product, he makes any user as admin, manage all customer orders, manage all users.
+
+## Quick Started:
+
+## Clone This Project To Your Local PC:
+
+## Client Side:
+
+```bash
+git clone https://github.com/programming-hero-web-course-4/niche-website-client-side-sonjoyb7u.git
+```
+
+## Server Side:
+
+```bash
+git clone https://github.com/programming-hero-web-course-4/niche-website-server-side-sonjoyb7u.git
+```
+
+## Client Side Github Link:
+
+[![Open in Github gh-pages](https://img.shields.io/badge/Open%20In-Github%20gh--pages-blue?logo=github)](https://github.com/programming-hero-web-course-4/niche-website-client-side-sonjoyb7u)
+
+## Server Side Github Link:
+
+[![Open in Github gh-pages](https://img.shields.io/badge/Open%20In-Github%20gh--pages-blue?logo=github)](https://github.com/programming-hero-web-course-4/niche-website-server-side-sonjoyb7u)
+
+## Useful URl Link:
+
+- Firebase Live domain URL Link:
+- Github Private Repo Link one:
+- i) Client Side: https://github.com/programming-hero-web-course-4/niche-website-client-side-sonjoyb7u
+- ii) Server Side: https://github.com/programming-hero-web-course-4/niche-website-server-side-sonjoyb7u
+
+-----------------------=========================================-------------------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
