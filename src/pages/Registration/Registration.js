@@ -7,7 +7,7 @@ import useAuth from '../../assets/hooks/useAuth';
 
 
 const Registration = () => {
-    const {userSignInWithGoogleProcess, userCustomRegistrationProcess, isUserComing, user, authSuccessMsg, setAuthSuccessMsg,  authErrorMsg, setAuthErrorMsg} = useAuth();
+    const { userCustomRegistrationProcess, isUserComing, user, authSuccessMsg, setAuthSuccessMsg,  authErrorMsg, setAuthErrorMsg} = useAuth();
     const [registerFormData, setRegisterFormData] = useState({});
     const location = useLocation();
     const history = useHistory();
@@ -37,9 +37,9 @@ const Registration = () => {
         
     };
 
-    const handleGoogleSignInProcess = () => {
-        userSignInWithGoogleProcess(location, history)
-    }
+    // const handleGoogleSignInProcess = () => {
+    //     userSignInWithGoogleProcess(location, history)
+    // }
 
     // Confirm Alert Message State ...
     const [open, setOpen] = React.useState(true);
@@ -55,7 +55,7 @@ const Registration = () => {
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
                             <Paper elevation={3} sx={{ py: 4, px: 6 }} >
                                 <Grid item xs={12} sm={12} md={12} lg={12} >
-                                    <Typography variant="h4" sx={{ color: "violet", textAlign: "center", fontWeight: "bold", mb: 1 }}>
+                                    <Typography variant="h4" sx={{ color: "#AA076B", textAlign: "center", fontWeight: "bold", mb: 1 }}>
                                         Registration
                                     </Typography>
                                     {/* Confirm  Success Message Show Process ...  */}
@@ -123,7 +123,7 @@ const Registration = () => {
                                         
                                             
                                             <div>
-                                                <Button type="submit" variant="contained" style={{ width: "50%", background: "#14D1CC", display: "block", margin: "20px auto" }} >
+                                                <Button type="submit" variant="contained" style={{ width: "50%", background: "#AA076B", display: "block", margin: "20px auto" }} >
                                                     Registration
                                                 </Button>
                                             </div>

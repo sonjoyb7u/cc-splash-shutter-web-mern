@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, Grid, Paper, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { Container, Grid } from '@mui/material';
+// import { Box } from '@mui/system';
 import serviceOfferImgOne  from './../../../assets/images/special-offers/special_offer_1.png';
 import serviceOfferImgTwo from './../../../assets/images/special-offers/special_offer_2.png';
 import serviceOfferImgThree  from './../../../assets/images/special-offers/special_offer_3.png';

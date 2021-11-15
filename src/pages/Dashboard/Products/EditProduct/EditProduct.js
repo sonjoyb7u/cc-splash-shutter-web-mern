@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Box, Button, Typography, TextField, TextareaAutosize, CircularProgress, Alert, IconButton, Fab, Input } from '@mui/material';
-import { Controller, useForm } from "react-hook-form";
-import { useParams } from 'react-router-dom';
+import { Container, Grid, Box, Button, Typography, TextField } from '@mui/material';
+import { useForm } from "react-hook-form";
+import { useParams, useHistory } from 'react-router-dom';
 
 const EditProduct = () => {
     const {id} = useParams();
+    const history = useHistory();
     const [product, setProduct] = useState({});
-    const { control, register, handleSubmit, watch, formState: { errors }, reset } = useForm({});
+    const { register, handleSubmit, formState: { errors }, reset  } = useForm({});
     // const generateKey = `${Math.ceil(Math.random(9999))}_${ new Date().getTime() }`;
     // const _id = '618e12fb017b15008c7645f9';
 
     // Fetch data from database ...
     useEffect(() => {
-        const url = `http://localhost:5001/products/edit/${id}`
+        const url = `https://pure-castle-02044.herokuapp.com/admins/product/edit/${id}`
         fetch(url)
         .then(res => res.json())
         .then(result => {
@@ -20,7 +21,7 @@ const EditProduct = () => {
             
         });
 
-    }, []);
+    }, [id]);
 
     const handleFormInputChange = (e) => {
         const field = e.target.name;
@@ -34,8 +35,8 @@ const EditProduct = () => {
     const onSubmit = (data) => {
         data = {...product};
         data.updatedAt = new Date().toLocaleDateString();
-        console.log(data);
-        const url = `http://localhost:5001/products/update/${id}`
+        // console.log(data);
+        const url = `https://pure-castle-02044.herokuapp.com/admins/product/update/${id}`
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -45,10 +46,11 @@ const EditProduct = () => {
         })
         .then(res => res.json())
         .then(result => {
-            console.log(result);
+            // console.log(result);
             if(result.modifiedCount) {
-                // reset();
-                alert("Data Updated...");
+                reset();
+                alert("product Updated...");
+                history.push('/dashboard/admins/products/manage');
             }
             else {
                 alert("Something Wrong!!!");

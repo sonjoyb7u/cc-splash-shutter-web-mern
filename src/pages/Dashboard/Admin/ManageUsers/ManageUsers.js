@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {
-  Switch,
-  Route,
   useRouteMatch,
   NavLink
 } from "react-router-dom";
@@ -13,25 +11,25 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Button, Fab, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Button, Fab, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import PreviewOutlinedIcon from '@mui/icons-material/PreviewOutlined';
-import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
+// import ChangeCircleOutlinedIcon from '@mui/icons-material/ChangeCircleOutlined';
 import { Box } from '@mui/system';
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 
 
 const ManageUsers = () => {
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [users, setUsers] = React.useState([]);
-    // const { register, handleSubmit } = useForm();
     const [role, setRole] = React.useState('');
     const [userId, setUserId] = React.useState('');
+    // const { register, handleSubmit } = useForm();
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -43,7 +41,7 @@ const ManageUsers = () => {
     };
 
     React.useEffect(() => {
-        const url = `http://localhost:5001/users`;
+        const url = `https://pure-castle-02044.herokuapp.com/users`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
@@ -53,20 +51,19 @@ const ManageUsers = () => {
     }, [role]);
 
 
-    const handleUserId = (id) => {
-        setUserId(id);
-    };
+    // const handleUserId = (id) => {
+    //     setUserId(id);
+    // };
 
+    // User Role status change process ...
     const handleRoleChange = (e) => {
         setRole({
             role: e.target.value
         });
     }
-
-    // User Role status change process ...
     const handleUserRoleChanged = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:5001/users/roleChange/${userId}`, {
+        fetch(`https://pure-castle-02044.herokuapp.com/users/roleChange/${userId}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(role),
@@ -89,7 +86,7 @@ const ManageUsers = () => {
         const confirmDelete = window.confirm("Are you sure want to delete this user?")
         if(confirmDelete) {
             // console.log(productId);
-            const url = `http://localhost:5001/users/delete/${userId}`;
+            const url = `https://pure-castle-02044.herokuapp.com/users/delete/${userId}`;
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -150,7 +147,7 @@ const ManageUsers = () => {
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             sx={{ height: "40px", mb: 1}}
-                                            value={role}
+                                            defaultValue={role}
                                             label="Role"
                                             onChange={handleRoleChange}
                                             onClick={() => setUserId(user?._id)}
@@ -170,15 +167,15 @@ const ManageUsers = () => {
                                     </Stack>
                                 </TableCell>
                                 <TableCell>
-                                    <Fab size="small" color="inherit" aria-label="view">
+                                    <Fab onClick={() => alert("Now Under Processing...")} size="small" color="inherit" aria-label="view">
                                         <PreviewOutlinedIcon fontSize="small" />
                                     </Fab>
                                     &nbsp;&nbsp;
-                                    <NavLink to={`${path}/edit/${user?._id}`}>
-                                        <Fab size="small" color="primary" aria-label="edit">
+                                    {/* <NavLink to={`${path}/edit/${user?._id}`}> */}
+                                        <Fab  onClick={() => alert("Now Under Processing...")} size="small" color="primary" aria-label="edit">
                                             <ModeEditOutlineOutlinedIcon fontSize="small" />
                                         </Fab>
-                                    </NavLink>
+                                    {/* </NavLink> */}
                                     &nbsp;&nbsp;
                                     <Fab onClick={() => handleDeletedUser(user?._id)} size="small"  color="secondary"  aria-label="delete">
                                         <DeleteForeverOutlinedIcon fontSize="small" />

@@ -26,7 +26,7 @@ const TootTip = styled(({ className, ...props }) => (
 }));
 
 const ExploreProductDetail = ({exploreProduct}) => {
-    const {_id, title, imageUrl, price, packagePrice, shortDesc, key, createdAt} = exploreProduct;
+    const {_id, title, imageUrl, price, packagePrice, shortDesc, createdAt} = exploreProduct;
 
     return (
         <>

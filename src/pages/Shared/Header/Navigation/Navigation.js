@@ -11,7 +11,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import TravelExploreOutlinedIcon from '@mui/icons-material/TravelExploreOutlined';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import logo from './../../../../assets/images/logo/logo_5_160x.png';
-import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import useAuth from '../../../../assets/hooks/useAuth';
 
 //  Start Search bar handle process ... 

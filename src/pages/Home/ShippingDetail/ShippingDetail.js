@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { Container, Grid, Box, Button, Typography, TextField, TextareaAutosize, CircularProgress, Alert, IconButton, Fab, Paper } from '@mui/material';
+import { Container, Grid, Box, Button, Typography, TextField, Paper } from '@mui/material';
 import { useForm } from "react-hook-form";
 import Footer from '../../Shared/Footer/Footer';
 import Navigation from '../../Shared/Header/Navigation/Navigation';
@@ -10,19 +10,19 @@ const ShippingDetail = () => {
     const {id} = useParams();
     const [product, setProduct] = useState({});
     const {user} = useAuth();
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const history = useHistory();
 
     useEffect(() => {
-        const url = `http://localhost:5001/product-detail/${id}`;
+        const url = `https://pure-castle-02044.herokuapp.com/product-detail/${id}`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
             setProduct(result)
         })
-    }, []);
+    }, [id]);
 
-    const {_id, imageUrl, title, price, packagePrice, key} = product;
+    const {_id, imageUrl, title, price, key} = product;
 
     const onSubmit = (data) => {
         data.productId = _id;
@@ -35,7 +35,7 @@ const ShippingDetail = () => {
         data.status = "pending";
         data.createdAt = new Date().toLocaleDateString();
         // console.log(data);
-        const url = `http://localhost:5001/user/order/create`
+        const url = `https://pure-castle-02044.herokuapp.com/user/order/create`
         fetch(url, {
             method: 'POST',
             headers: {

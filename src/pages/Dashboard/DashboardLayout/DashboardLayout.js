@@ -8,11 +8,9 @@ import MuiAppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-import EditOffOutlinedIcon from '@mui/icons-material/EditOffOutlined';
+// import EditOffOutlinedIcon from '@mui/icons-material/EditOffOutlined';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import BorderAllOutlinedIcon from '@mui/icons-material/BorderAllOutlined';
@@ -382,68 +380,61 @@ const TootTip = styled(({ className, ...props }) => (
 
           {/* Loading Dynamically Main Component ...  */}
           <Switch>
-            <Route exact path={`${path}`}>
-              {
-                isAdmin 
-                ?
-                <AdminHome></AdminHome>
-                : 
-                <UserHome></UserHome>
-
-              }
-            </Route>
             {
               isAdmin 
               && 
-              <Box>
-              <Route exact path={`${path}/admins/manage`}>
-                <ManageUsers></ManageUsers>
+              <Route exact path={`${path}`}>
+                <AdminHome></AdminHome> 
               </Route>
-              <Route exact path={`${path}/admins/products/add`}>
-                <AddProduct></AddProduct>
-              </Route>
-              <Route exact path={`${path}/admins/products/manage`}>
-                <ManageProducts></ManageProducts>
-              </Route>
-              <Route exact path={`${path}/admins/products/manage/edit/:id`}>
-                <EditProduct></EditProduct>
-              </Route>
-              <Route exact path={`${path}/admins/order/manage`}>
-                <ManageOrders></ManageOrders>
-              </Route>
-              <Route exact path={`${path}/admins/review/manage`}>
-                <ManageAllReviews></ManageAllReviews>
-              </Route>
-              <Route exact path={`${path}/admins/product-review/manage`}>
-                <ManageProductReviews></ManageProductReviews>
-              </Route>
-              </Box>
             }
 
             {
               !isAdmin 
               && 
-              <Box>
-              <Route exact path={`${path}/user/order/manage`}>
-                <MyOrders></MyOrders>
+              <Route exact path={`${path}`}>
+                  <UserHome></UserHome>
               </Route>
-              <Route exact path={`${path}/user/review/add`}>
-                <AddReview></AddReview>
-              </Route>
-              <Route exact path={`${path}/user/review/manage`}>
-                <ManageReviews></ManageReviews>
-              </Route>
-              <Route exact path={`${path}/user/order/manage/product-review/add/:id`}>
-                <ProductWiseReview></ProductWiseReview>
-              </Route>
-              <Route exact path={`${path}/user/product-review/manage`}>
-                <ManageProductReview></ManageProductReview>
-              </Route>
-              <Route exact path={`${path}/user/payment/manage`}>
-                <ManagePayments></ManagePayments> 
-              </Route>
-              </Box>
             }
+            <AdminPrivateRoute exact path={`${path}/admins/manage`}>
+              <ManageUsers></ManageUsers>
+            </AdminPrivateRoute>
+            <AdminPrivateRoute exact path={`${path}/admins/products/add`}>
+              <AddProduct></AddProduct>
+            </AdminPrivateRoute>
+            <AdminPrivateRoute exact path={`${path}/admins/products/manage`}>
+              <ManageProducts></ManageProducts>
+            </AdminPrivateRoute>
+            <AdminPrivateRoute exact path={`${path}/admins/products/manage/edit/:id`}>
+              <EditProduct></EditProduct>
+            </AdminPrivateRoute>
+            <AdminPrivateRoute exact path={`${path}/admins/order/manage`}>
+              <ManageOrders></ManageOrders>
+            </AdminPrivateRoute>
+            <AdminPrivateRoute exact path={`${path}/admins/review/manage`}>
+              <ManageAllReviews></ManageAllReviews>
+            </AdminPrivateRoute>
+            <AdminPrivateRoute exact path={`${path}/admins/product-review/manage`}>
+              <ManageProductReviews></ManageProductReviews>
+            </AdminPrivateRoute>
+            <Route exact path={`${path}/user/order/manage`}>
+              <MyOrders></MyOrders>
+            </Route>
+            <Route exact path={`${path}/user/review/add`}>
+              <AddReview></AddReview>
+            </Route>
+            <Route exact path={`${path}/user/review/manage`}>
+              <ManageReviews></ManageReviews>
+            </Route>
+            <Route exact path={`${path}/user/order/manage/product-review/add/:id`}>
+              <ProductWiseReview></ProductWiseReview>
+            </Route>
+            <Route exact path={`${path}/user/product-review/manage`}>
+              <ManageProductReview></ManageProductReview>
+            </Route>
+            <Route exact path={`${path}/user/payment/manage`}>
+              <ManagePayments></ManagePayments> 
+            </Route>
+
           </Switch>
 
         </Box>

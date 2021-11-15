@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import {Card, Grid, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography} from '@mui/material';
+import { Card, Grid, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, Rating } from '@mui/material';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -26,7 +26,7 @@ const TootTip = styled(({ className, ...props }) => (
 }));
 
 const Product = ({product}) => {
-    const {_id, title, imageUrl, price, packagePrice, shortDesc, key, createdAt} = product;
+    const {_id, title, imageUrl, price, rating, packagePrice, shortDesc, createdAt} = product;
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={4}>
@@ -53,6 +53,7 @@ const Product = ({product}) => {
                     />
                 </NavLink>
                 <CardContent >
+                    <Rating sx={{ mb: 2 }} name="read-only" value={parseInt(rating)} /> 
                     <Typography variant="body2" color="#fff"><strong>Description: </strong><br />
                     {shortDesc.slice(0, 100)} ... ...
                     </Typography>

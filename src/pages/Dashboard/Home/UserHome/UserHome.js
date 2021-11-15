@@ -5,13 +5,13 @@ import useAuth from '../../../../assets/hooks/useAuth';
 
 
 const UserHome = () => {
-    const {user, isAdmin} = useAuth();
+    const {user} = useAuth();
 
     return (
         <>
             <Box style={{ height: "100vh" }}>
                 <Paper sx={{ p: 2 }}>
-                    <Typography variant="h3" color="secondary" >Welcome, Mr. {user?.displayName} (Guest User) To Your Dashboard</Typography>
+                    <Typography variant="h3" color="secondary" >Welcome, Mr. {user?.displayName} (Guest) To Your Dashboard</Typography>
                 </Paper>
             </Box>
         </>

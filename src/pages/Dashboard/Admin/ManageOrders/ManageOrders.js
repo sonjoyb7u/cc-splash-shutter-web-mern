@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {
-  Switch,
-  Route,
   useRouteMatch,
   NavLink
 } from "react-router-dom";
@@ -17,7 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import { Button, Container, Fab, Typography } from '@mui/material';
+import { Button, Fab, Typography } from '@mui/material';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
@@ -27,7 +25,6 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import useAuth from '../../../../assets/hooks/useAuth';
 
 
 // TootTip Info Title ...
@@ -45,11 +42,10 @@ const TootTip = styled(({ className, ...props }) => (
 
 
 const ManageOrders = () => {
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [allOrders, setAllOrders] = React.useState([]);
-    const {user} = useAuth();
     const [status, setStatus] = React.useState('');
     const [orderId, setOrderId] = React.useState('');
 
@@ -63,7 +59,7 @@ const ManageOrders = () => {
     };
 
     React.useEffect(() => {
-        const url = `http://localhost:5001/admins/allOrders`;
+        const url = `https://pure-castle-02044.herokuapp.com/admins/allOrders`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
@@ -82,7 +78,7 @@ const ManageOrders = () => {
     const handleOrderStatusUpdated = (e) => {
         e.preventDefault();
         // console.log(orderId, status);
-        fetch(`http://localhost:5001/admins/order/status/${orderId}`, {
+        fetch(`https://pure-castle-02044.herokuapp.com/admins/order/status/${orderId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(status),
@@ -106,7 +102,7 @@ const ManageOrders = () => {
         const confirmDelete = window.confirm("Are you sure want to delete this order?")
         if(confirmDelete) {
             // console.log(productId);
-            const url = `http://localhost:5001/admins/allOrder/delete/${orderId}`;
+            const url = `https://pure-castle-02044.herokuapp.com/admins/allOrder/delete/${orderId}`;
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -176,7 +172,7 @@ const ManageOrders = () => {
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
                                             sx={{ height: "40px", mb: 1}}
-                                            value={status}
+                                            defaultValue={status}
                                             label="Status"
                                             onChange={handleStatusChange}
                                             onClick={() => setOrderId(allOrder?._id)}
@@ -196,13 +192,13 @@ const ManageOrders = () => {
                                 </TableCell>
                                 <TableCell>
                                     
-                                    <NavLink to={`/dashboard/admins/order/view/${allOrder?._id}`}>
+                                    {/* <NavLink to={`/dashboard/admins/order/view/${allOrder?._id}`}> */}
                                     <TootTip title="View Order Detail">
-                                        <Fab size="small" color="inherit" aria-label="edit">
-                                            <FeedbackOutlinedIcon fontSize="small" />
+                                        <Fab onClick={() => alert("Now Under Processing...")} size="small" color="inherit" aria-label="edit">
+                                            <PreviewOutlinedIcon fontSize="small" />
                                         </Fab>
                                     </TootTip>
-                                    </NavLink>
+                                    {/* </NavLink> */}
                                     &nbsp;
                                     <NavLink to={`${path}/edit/${allOrder?._id}`}>
                                     <TootTip title="View For Edit">

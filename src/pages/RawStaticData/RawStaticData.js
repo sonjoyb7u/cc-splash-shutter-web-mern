@@ -10,7 +10,7 @@ import secureImg from '../../assets/images/help-services/exchange.png';
 // Special Offer Images ... 
 import serviceOfferImgOne  from '../../assets/images/special-offers/special_offer_1.png';
 import serviceOfferImgTwo from '../../assets/images/special-offers/special_offer_2.png';
-import serviceOfferImgThree  from '../../assets/images/special-offers/special_offer_3.png';
+// import serviceOfferImgThree  from '../../assets/images/special-offers/special_offer_3.png';
 
 
 const SliderImages = [

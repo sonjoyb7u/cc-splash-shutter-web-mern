@@ -11,7 +11,7 @@ const useFirebase = () => {
     const [authSuccessMsg, setAuthSuccessMsg] = useState('');
     const [authErrorMsg, setAuthErrorMsg] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
-    const [userRole, setUserRole] = useState(false);
+    // const [userRole, setUserRole] = useState(false);
 
     // User Global Auth ...
     const auth = getAuth();
@@ -21,9 +21,6 @@ const useFirebase = () => {
         setIsUserComing(true);
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-
             const registerNewUser = {displayName: displayName, email, photoURL: imageUrl}
             setUser(registerNewUser);
             // console.log(registerNewUser);
@@ -40,9 +37,7 @@ const useFirebase = () => {
                 // Profile updated!
             }).catch((error) => {
                 // An error occurred
-                const errorCode = error.code;
                 const errorMessage = error.message;
-                // console.log(errorCode, errorMessage);
                 setAuthSuccessMsg('');
                 setAuthErrorMsg(errorMessage);
             });
@@ -53,9 +48,7 @@ const useFirebase = () => {
             // history.replace(redirect_url);
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
-            // console.log(errorCode, errorMessage);
             setAuthSuccessMsg('');
             setAuthErrorMsg(errorMessage);
         })
@@ -68,9 +61,6 @@ const useFirebase = () => {
         setIsUserComing(true);
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-
             // setAuthErrorMsg('');
             // setAuthSuccessMsg("You Are Successfully Logged In, Enjoy...");
             // console.log(location?.state?.from );
@@ -78,9 +68,7 @@ const useFirebase = () => {
             history.replace(redirect_url);
         })
         .catch((error) => {
-            const errorCode = error.code;
             const errorMessage = error.message;
-            // console.log(errorCode, errorMessage);
             setAuthSuccessMsg('');
             setAuthErrorMsg(errorMessage);
         })
@@ -96,8 +84,7 @@ const useFirebase = () => {
         signInWithPopup(auth, googleProvider)
         .then((result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
+            // const credential = GoogleAuthProvider.credentialFromResult(result);
             // The signed-in user info.
             const user = result.user;
 
@@ -111,16 +98,9 @@ const useFirebase = () => {
 
         }).catch((error) => {
             // Handle Errors here.
-            const errorCode = error.code;
             const errorMessage = error.message;
-            // console.log(errorCode, errorMessage);
             setAuthSuccessMsg('');
             setAuthErrorMsg(errorMessage);
-            // The email of the user's account used.
-            const email = error.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
         })
         .finally(() => setIsUserComing(false));
     };
@@ -133,7 +113,7 @@ const useFirebase = () => {
         if(!isAdmin) {
             newRegisterUserInfo.role = "guest";
         }
-        const url = `http://localhost:5001/users`;
+        const url = `https://pure-castle-02044.herokuapp.com/users`;
         fetch(url, {
             method: method,
             headers: {
@@ -146,7 +126,7 @@ const useFirebase = () => {
     };
 
     // const checkUserRoleFromDB = (email) => {
-    //     const url = `http://localhost:5001/users/${email}`;
+    //     const url = `https://pure-castle-02044.herokuapp.com/users/${email}`;
     //     fetch(url)
     //     .then(res => res.json())
     //     .then(result => {
@@ -160,7 +140,7 @@ const useFirebase = () => {
         const unsubscribed = onAuthStateChanged(auth, (user) => {
             if (user) {
                 // User is signed in ...
-                const uid = user.uid;
+                // const uid = user.uid;
                 setUser(user);
 
             } else {
@@ -177,7 +157,7 @@ const useFirebase = () => {
 
     // Check User Is Admin Or Not Process ... 
     useEffect(() => {
-        const url = `http://localhost:5001/users/${user?.email}`;
+        const url = `https://pure-castle-02044.herokuapp.com/users/${user?.email}`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
@@ -208,7 +188,6 @@ const useFirebase = () => {
 
         }).catch((error) => {
             // An error happened.
-            const errorCode = error.code;
             const errorMessage = error.message;
             // console.log(errorCode, errorMessage);
             setAuthSuccessMsg('');

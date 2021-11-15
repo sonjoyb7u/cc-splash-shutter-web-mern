@@ -1,31 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Box, Button, Typography, TextField, TextareaAutosize, CircularProgress, Alert, IconButton, Fab, Paper } from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+import { Container, Grid, Box, Button, Typography, TextField, Paper, Card, CardContent, CardMedia  } from '@mui/material';
 import { CardActionArea } from '@mui/material';
 import { useForm } from "react-hook-form";
 import useAuth from '../../../../../assets/hooks/useAuth';
-import { useRouteMatch, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 
 const ProductWiseReview = () => {
-    let { path } = useRouteMatch();
     const {id} = useParams();
     const history = useHistory();
     const [order, setOrder] = useState({});
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const {user} = useAuth();
 
     useEffect(() => {
-        const url = `http://localhost:5001/user/order/${id}`;
+        const url = `https://pure-castle-02044.herokuapp.com/user/order/${id}`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
             setOrder(result)
         })
 
-    }, []);
+    }, [id]);
 
     // console.log(order);
 
@@ -43,7 +39,7 @@ const ProductWiseReview = () => {
             data.productImageUrl = order.imageUrl;
             data.display = "hide";
             data.createdAt = new Date().toLocaleDateString();
-            const url = `http://localhost:5001/user/product-review/create`;
+            const url = `https://pure-castle-02044.herokuapp.com/user/product-review/create`;
             fetch(url, {
                 method: 'POST',
                 headers: {

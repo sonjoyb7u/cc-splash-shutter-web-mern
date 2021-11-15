@@ -1,11 +1,7 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, Container, Paper } from '@mui/material';
-import orderPlaceImg from './../../../assets/images/place-order/giphy.gif'
+import { Button, CardActionArea, Container, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import orderPlaceImg from './../../../assets/images/place-order/giphy.gif'
 import { NavLink } from 'react-router-dom';
 
 const PlaceOrder = () => {

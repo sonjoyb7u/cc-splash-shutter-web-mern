@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {
-  Switch,
-  Route,
-  useRouteMatch,
+//   useRouteMatch,
   NavLink
 } from "react-router-dom";
 import { styled } from '@mui/material/styles';
@@ -18,17 +16,16 @@ import Rating from '@mui/material/Rating';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import { Button, Container, Fab, Typography } from '@mui/material';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { Button, Fab, Typography } from '@mui/material';
+// import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
-import PreviewOutlinedIcon from '@mui/icons-material/PreviewOutlined';
+// import PreviewOutlinedIcon from '@mui/icons-material/PreviewOutlined';
 import { Box } from '@mui/system';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import useAuth from '../../../../assets/hooks/useAuth';
 
 
 // TootTip Info Title ...
@@ -44,11 +41,10 @@ const TootTip = styled(({ className, ...props }) => (
 }));
 
 const ManageAllReviews = () => {
-    let { path, url } = useRouteMatch();
+    // let { path } = useRouteMatch();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [allReviews, setAllReviews] = React.useState([]);
-    const {user} = useAuth();
     const [displayStatus, setDisplayStatus] = React.useState('');
     const [reviewId, setReviewId] = React.useState('');
 
@@ -62,7 +58,7 @@ const ManageAllReviews = () => {
     };
 
     React.useEffect(() => {
-        const url = `http://localhost:5001/admins/allReviews`;
+        const url = `https://pure-castle-02044.herokuapp.com/admins/allReviews`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
@@ -81,7 +77,7 @@ const ManageAllReviews = () => {
     const handleOrderStatusUpdated = (e) => {
         e.preventDefault();
         // console.log(reviewId, status);
-        fetch(`http://localhost:5001/admins/review/status/${reviewId}`, {
+        fetch(`https://pure-castle-02044.herokuapp.com/admins/review/status/${reviewId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(displayStatus),
@@ -103,7 +99,7 @@ const ManageAllReviews = () => {
         const confirmDelete = window.confirm("Are you sure want to delete this review?")
         if(confirmDelete) {
             // console.log(productId);
-            const url = `http://localhost:5001/admins/review/delete/${reviewId}`;
+            const url = `https://pure-castle-02044.herokuapp.com/admins/review/delete/${reviewId}`;
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -113,7 +109,7 @@ const ManageAllReviews = () => {
             .then(res => res.json())
             .then(result => {
                 if(result.deletedCount > 0) {
-                    alert("Order has been Deleted Success...");
+                    alert("Review has been Deleted Success...");
                     const restOrders = allReviews?.filter(allReview => allReview._id !== reviewId)
                     setAllReviews(restOrders);
                 }
@@ -142,7 +138,7 @@ const ManageAllReviews = () => {
                             <TableCell align="center">Image</TableCell>
                             <TableCell align="center">Review</TableCell>
                             <TableCell align="center">Rating</TableCell>
-                            <TableCell align="center">Status</TableCell>
+                            <TableCell align="center">Display</TableCell>
                             <TableCell align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
@@ -160,29 +156,28 @@ const ManageAllReviews = () => {
                                 </TableCell>
                                 <TableCell align="center">{allReview?.review.slice(0, 30)} ...</TableCell>
                                 <TableCell align="center">
-                                    <Rating name="read-only" value={allReview?.rating} readOnly />
-                                    
+                                    <Rating name="read-only" value={parseInt(allReview?.rating)} readOnly />
                                 </TableCell>
                                 <TableCell align="center" sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     <form onSubmit={handleOrderStatusUpdated} >
                                         <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Display</InputLabel>
-                                            <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            sx={{ height: "40px", mb: 1}}
-                                            value={displayStatus}
-                                            label="Display"
-                                            onChange={handleDisplayChange}
-                                            onClick={() => setReviewId(allReview?._id)}
-                                            >
-                                                <MenuItem value="show">Show</MenuItem>
-                                                <MenuItem value="hide">Hide</MenuItem>
-                                                {/* <MenuItem value="cancelled">Cancelled</MenuItem> */}
-                                            </Select>
-                                            <Button type="submit" variant="contained" color="secondary" size="small">Change</Button>
-                                        </FormControl>
+                                            <FormControl fullWidth>
+                                                <InputLabel id="demo-simple-select-label">Display</InputLabel>
+                                                <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                sx={{ height: "40px", mb: 1}}
+                                                defaultValue={displayStatus}
+                                                label="Display"
+                                                onChange={handleDisplayChange}
+                                                onClick={() => setReviewId(allReview?._id)}
+                                                >
+                                                    <MenuItem value="show">Show</MenuItem>
+                                                    <MenuItem value="hide">Hide</MenuItem>
+                                                    {/* <MenuItem value="cancelled">Cancelled</MenuItem> */}
+                                                </Select>
+                                                <Button type="submit" variant="contained" color="secondary" size="small">Change</Button>
+                                            </FormControl>
                                         </Box>
                                     </form>
                                     <Stack direction="column">
@@ -192,20 +187,20 @@ const ManageAllReviews = () => {
                                 <TableCell>
                                     
                                     <NavLink to={`/dashboard/admins/review/view/${allReview?._id}`}>
-                                    <TootTip title="View Order Detail">
+                                    <TootTip title="View For Detail">
                                         <Fab size="small" color="inherit" aria-label="edit">
                                             <FeedbackOutlinedIcon fontSize="small" />
                                         </Fab>
                                     </TootTip>
                                     </NavLink>
                                     &nbsp;
-                                    <NavLink to={`${path}/edit/${allReview?._id}`}>
+                                    {/* <NavLink to={`${path}/edit/${allReview?._id}`}>
                                     <TootTip title="View For Edit">
                                         <Fab size="small" color="primary" aria-label="edit">
                                             <ModeEditOutlineOutlinedIcon fontSize="small" />
                                         </Fab>
                                     </TootTip>
-                                    </NavLink>
+                                    </NavLink> */}
                                     &nbsp;
                                     <TootTip title="View For Delete">
                                     <Fab  onClick={() => handleDeletedReview(allReview?._id)} size="small"  color="secondary"  aria-label="delete">

@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {
-  Switch,
-  Route,
   useRouteMatch,
   NavLink
 } from "react-router-dom";
@@ -17,7 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import { Container, Fab, Typography } from '@mui/material';
+import { Fab, Typography } from '@mui/material';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
@@ -40,7 +38,7 @@ const TootTip = styled(({ className, ...props }) => (
 
 
 const MyOrders = () => {
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [myOrders, setMyOrders] = React.useState([]);
@@ -56,14 +54,14 @@ const MyOrders = () => {
     };
 
     React.useEffect(() => {
-        const url = `http://localhost:5001/user/myOrders/${user.email}`;
+        const url = `https://pure-castle-02044.herokuapp.com/user/myOrders/${user?.email}`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
             setMyOrders(result)
         })
 
-    }, [myOrders]);
+    }, [user?.email, myOrders]);
 
 
     // Delete My Order ... 
@@ -72,7 +70,7 @@ const MyOrders = () => {
         const confirmDelete = window.confirm("Are you sure want to delete this order?")
         if(confirmDelete) {
             // console.log(productId);
-            const url = `http://localhost:5001/user/myOrder/delete/${orderId}`;
+            const url = `https://pure-castle-02044.herokuapp.com/user/myOrder/delete/${orderId}`;
             fetch(url, {
                 method: 'DELETE',
                 headers: {
@@ -139,27 +137,32 @@ const MyOrders = () => {
                                     </Stack>
                                 </TableCell>
                                 <TableCell>
-                                        <NavLink to={`${path}/product-review/add/${myOrder?._id}`}>
-                                        <TootTip title="Create Your Feedback/Review">
-                                            <Fab size="small" color="inherit" aria-label="edit">
-                                                <FeedbackOutlinedIcon fontSize="small" />
-                                            </Fab>
-                                        </TootTip>
-                                        </NavLink>
+                                    
+                                    <NavLink to={`${path}/product-review/add/${myOrder?._id}`}>
+                                    <TootTip title="Create Product Feedback/Review">
+                                        <Fab size="small" color="inherit" aria-label="edit">
+                                            <FeedbackOutlinedIcon fontSize="small" />
+                                        </Fab>
+                                    </TootTip>
+                                    </NavLink>
                                     &nbsp;
-                                    <TootTip title="View For Edit">
+                                    {/* <TootTip title="View For Edit">
                                     <NavLink to={`${path}/edit/${myOrder?._id}`}>
                                         <Fab size="small" color="primary" aria-label="edit">
                                             <ModeEditOutlineOutlinedIcon fontSize="small" />
                                         </Fab>
                                     </NavLink>
                                     </TootTip>
-                                    &nbsp;
-                                    <TootTip title="View For Delete">
-                                    <Fab  onClick={() => handleDeletedMyOrder(myOrder?._id)} size="small"  color="secondary"  aria-label="delete">
-                                        <DeleteForeverOutlinedIcon fontSize="small" />
-                                    </Fab>
-                                    </TootTip>
+                                    &nbsp; */}
+                                    {
+                                       myOrder?.status === "pending" 
+                                       && 
+                                        <TootTip title="View For Delete">
+                                        <Fab  onClick={() => handleDeletedMyOrder(myOrder?._id)} size="small"  color="secondary"  aria-label="delete">
+                                            <DeleteForeverOutlinedIcon fontSize="small" />
+                                        </Fab>
+                                        </TootTip>
+                                    }
                                 </TableCell>
                             </TableRow>
                             );

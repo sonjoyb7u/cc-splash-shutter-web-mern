@@ -1,7 +1,5 @@
 import * as React from 'react';
 import {
-  Switch,
-  Route,
   useRouteMatch,
   NavLink
 } from "react-router-dom";
@@ -21,7 +19,7 @@ import { Box } from '@mui/system';
 
 
 const ManageProducts = () => {
-    let { path, url } = useRouteMatch();
+    let { path } = useRouteMatch();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const [products, setProducts] = React.useState([])
@@ -36,7 +34,7 @@ const ManageProducts = () => {
     };
 
     React.useEffect(() => {
-        const url = `http://localhost:5001/products`;
+        const url = `https://pure-castle-02044.herokuapp.com/admins/products`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
@@ -52,7 +50,7 @@ const ManageProducts = () => {
         const confirmDelete = window.confirm("Are you sure want to delete this product?")
         if(confirmDelete) {
             // console.log(productId);
-            const url = `http://localhost:5001/products/delete/${productId}`;
+            const url = `https://pure-castle-02044.herokuapp.com/admins/product/delete/${productId}`;
             fetch(url, {
                 method: 'DELETE',
                 headers: {

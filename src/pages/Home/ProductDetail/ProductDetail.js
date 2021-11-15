@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import {Box, Container, Card, Grid, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, Button, Paper} from '@mui/material';
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import {Box, Container, Card, Grid, CardMedia, CardContent, CardActions, Button, Paper, Typography} from '@mui/material';
+// import { styled } from '@mui/material/styles';
+// import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import Footer from '../../Shared/Footer/Footer';
 import Navigation from '../../Shared/Header/Navigation/Navigation';
 
@@ -11,15 +11,15 @@ const ProductDetail = () => {
     const [product, setProduct] = useState({});
 
     useEffect(() => {
-        const url = `http://localhost:5001/product-detail/${id}`;
+        const url = `https://pure-castle-02044.herokuapp.com/home/product-detail/${id}`;
         fetch(url)
         .then(res => res.json())
         .then(result => {
             setProduct(result)
         })
-    }, []);
+    }, [id]);
 
-    const {_id, imageUrl, title, shortDesc, longDesc, price, packagePrice, key} = product;
+    const {_id, imageUrl, title, longDesc, price} = product;
 
     return (
         <>

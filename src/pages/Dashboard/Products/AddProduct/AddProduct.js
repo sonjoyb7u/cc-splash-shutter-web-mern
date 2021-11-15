@@ -1,15 +1,15 @@
 import React from 'react';
-import { Container, Grid, Box, Button, Typography, TextField, TextareaAutosize, CircularProgress, Alert, IconButton, Fab, Paper } from '@mui/material';
+import { Container, Grid, Box, Button, Typography, TextField, Paper } from '@mui/material';
 import { useForm } from "react-hook-form";
 
 const AddProduct = () => {
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const generateKey = `${Math.ceil(Math.random(9999))}_${ new Date().getTime() }`;
 
     const onSubmit = (data) => {
         data.key = generateKey;
         data.createdAt = new Date().toLocaleDateString();
-        const url = `http://localhost:5001/products/create`
+        const url = `https://pure-castle-02044.herokuapp.com/admins/product/create`
         fetch(url, {
             method: 'POST',
             headers: {
@@ -22,7 +22,7 @@ const AddProduct = () => {
             // console.log(result);
             if(result.insertedId) {
                 reset();
-                alert("Data Created...");
+                alert("Product Created...");
             }
             else {
                 alert("Something Wrong!!!");

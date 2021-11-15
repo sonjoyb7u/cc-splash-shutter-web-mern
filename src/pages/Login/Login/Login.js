@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { Container, Grid, Button, Typography, TextField, CircularProgress, Alert, IconButton, Fab, Paper } from '@mui/material';  
 import { Box } from '@mui/system';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
-import loginImg from './../../../assets/images/login/login_image_1.png'
+// import loginImg from './../../../assets/images/login/login_image_1.png'
 import {NavLink, useHistory, useLocation} from 'react-router-dom';
 import useAuth from '../../../assets/hooks/useAuth';
 
 
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
-});
+// const Img = styled('img')({
+//   margin: 'auto',
+//   display: 'block',
+//   maxWidth: '100%',
+//   maxHeight: '100%',
+// });
 
 const Login = () => {
     const {userCustomLoginProcess, userSignInWithGoogleProcess, isUserComing, user, authSuccessMsg, setAuthSuccessMsg, authErrorMsg, setAuthErrorMsg} = useAuth();
@@ -68,7 +68,7 @@ const Login = () => {
                             <Box sx={{ display: "flex", justifyContent: "center" }}>
                                 <Paper elevation={3} sx={{ py: 4, px: 6 }} >
                                     <Grid item xs={12} sm={12} md={12} lg={12} >
-                                        <Typography variant="h4" sx={{ color: "violet", textAlign: "center", fontWeight: "bold", mb: 2 }}>
+                                        <Typography variant="h4" sx={{ color: "#AA076B", textAlign: "center", fontWeight: "bold", mb: 2 }}>
                                         Login
                                         </Typography>
                                         {/* Confirm  Success Message Show Process ...  */}
@@ -140,11 +140,11 @@ const Login = () => {
                                                     </div>
                                                     
                                                     <div>
-                                                        <Button type="submit" variant="contained" style={{ width: "50%", background: "#14D1CC", display: "block", margin: "20px auto" }} >
+                                                        <Button type="submit" variant="contained" style={{ width: "50%", background: "#AA076B  ", display: "block", margin: "20px auto" }} >
                                                             Login
                                                         </Button>
                                                     </div>
-                                                    <hr/>
+                                                    <span>----------------OR---------------</span>
                                                     <Box sx={{ m: 1, display: "flex", justifyContent: "center" }}>
                                                         <Fab onClick={handleGoogleSignInProcess} size="small" color="secondary" aria-label="add">
                                                             <GoogleIcon fontSize="small" />

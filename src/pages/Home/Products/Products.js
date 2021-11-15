@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Container, Card, Grid, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, InputBase, Button, Paper} from '@mui/material';
+import {Container, Grid, Typography, InputBase, Button, Paper} from '@mui/material';
 import { Box } from '@mui/system';
 import Product from '../Product/Product';
 import { NavLink } from 'react-router-dom';
@@ -54,7 +54,7 @@ const Products = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const url = `http://localhost:5001/products`;
+        const url = `https://pure-castle-02044.herokuapp.com/home/products`;
         fetch(url)
         .then(res => res.json())
         .then(result => {

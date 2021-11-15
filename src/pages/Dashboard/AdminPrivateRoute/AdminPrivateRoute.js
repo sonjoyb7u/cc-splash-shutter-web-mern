@@ -4,9 +4,9 @@ import useAuth from '../../../assets/hooks/useAuth';
 import { Redirect, Route } from 'react-router-dom';
 
 const AdminPrivateRoute = ({ children, ...rest }) => {
-    const {user, isUserComing, isAdmin} = useAuth();
+    const {user, isAdmin} = useAuth();
 
-    if(isUserComing) {
+    if(!isAdmin) {
         return <CircularProgress style={{ position: "absolute", top: "50%", left: "50%", zIndex: 999 }} color="inherit" />
     }
 
