@@ -6,7 +6,11 @@ import useAuth from '../../../../assets/hooks/useAuth';
 const AdminHome = () => {
     const {user} = useAuth();
     const [allProducts, setAllProducts] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+    const [allOrders, setAllOrders] = useState([]);
+    const [allReviews, setAllReviews] = useState([]);
 
+    // All Products ...
     useEffect(() => {
         const url = `https://pure-castle-02044.herokuapp.com/admins/products`;
         fetch(url)
@@ -17,7 +21,38 @@ const AdminHome = () => {
 
     }, []);
 
-    console.log(allProducts);
+    // All Users ...
+    useEffect(() => {
+        const url = `https://pure-castle-02044.herokuapp.com/users`;
+        fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            setAllUsers(result)
+        })
+
+    }, []);
+
+    // All Orders ...
+    useEffect(() => {
+        const url = `https://pure-castle-02044.herokuapp.com/admins/allOrders`;
+        fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            setAllOrders(result)
+        })
+
+    }, []);
+
+    // All Reviews ... 
+    useEffect(() => {
+        const url = `https://pure-castle-02044.herokuapp.com/admins/allReviews`;
+        fetch(url)
+        .then(res => res.json())
+        .then(result => {
+            setAllReviews(result)
+        })
+
+    }, []);
 
 
     return (
@@ -32,23 +67,23 @@ const AdminHome = () => {
                 <Grid item xs={4}>
                     <Box>
                         <Paper elevation={3} sx={{ p: 2 }}>
-                            <Typography variant="h6" color="secondary" >Total Users:   </Typography>
+                            <Typography variant="h6" color="secondary" >Total Users:  <strong style={{ float: "right" }}>{allUsers?.length}</strong></Typography>
                         </Paper>
                     </Box>
                 </Grid>
                 <Grid item xs={4}>
                      <Box>
-                        <Paper elevation={3} sx={{ p: 2 }}><Typography variant="h6" color="secondary" >Total Products: <strong>{allProducts?.length}</strong></Typography></Paper>
+                        <Paper elevation={3} sx={{ p: 2 }}><Typography variant="h6" color="secondary" >Total Products: <strong style={{ float: "right" }}>{allProducts?.length}</strong></Typography></Paper>
                     </Box>
                 </Grid>
                 <Grid item xs={4}>
                      <Box>
-                        <Paper elevation={3} sx={{ p: 2 }}><Typography variant="h6" color="secondary" >Total Orders: </Typography></Paper>
+                        <Paper elevation={3} sx={{ p: 2 }}><Typography variant="h6" color="secondary" >Total Orders: <strong style={{ float: "right" }}>{allOrders?.length}</strong></Typography></Paper>
                     </Box>
                 </Grid>
                 <Grid item xs={4}>
                      <Box>
-                        <Paper elevation={3} sx={{ p: 2 }}><Typography variant="h6" color="secondary" >Total Reviews: </Typography></Paper>
+                        <Paper elevation={3} sx={{ p: 2 }}><Typography variant="h6" color="secondary" >Total Reviews: <strong style={{ float: "right" }}>{allReviews?.length}</strong></Typography></Paper>
                     </Box>
                 </Grid>
                 </Grid>
