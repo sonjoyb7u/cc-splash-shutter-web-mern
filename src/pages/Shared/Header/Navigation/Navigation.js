@@ -7,6 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import TravelExploreOutlinedIcon from '@mui/icons-material/TravelExploreOutlined';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -176,18 +178,52 @@ const Navigation = () => {
                 </IconButton>
                 <p>Explore</p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit"
-                >
-                <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
+            {
+                !user?.email 
+                && 
+                <Box>
+                <MenuItem>
+                    <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                    >
+                        <LoginOutlinedIcon />
+                    </IconButton>
+                    <p>Login</p>
+                </MenuItem>
+                <MenuItem>
+                    <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                    >
+                        <AppRegistrationOutlinedIcon />
+                    </IconButton>
+                    <p>Register</p>
+                </MenuItem>
+                </Box>
+            }
+
+            {
+              user?.email 
+              &&
+              <Box>
+                <MenuItem onClick={handleProfileMenuOpen}>
+                    <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <p>Profile</p>
+                </MenuItem>
+              </Box> 
+
+            }
             <MenuItem>
                 <IconButton
                 size="large"
@@ -220,24 +256,26 @@ const Navigation = () => {
 
                         {/* <Box sx={{ flexGrow: 1 }} /> */}
 
-                        <NavLink to="/home" style={{ color: "#000", textDecoration: "none" }}>
-                            <Button color="secondary" >Home</Button>
-                        </NavLink>
-                        <NavLink to="/explore-products" style={{ color: "#000", textDecoration: "none" }}>
-                            <Button color="secondary">Explore</Button>
-                        </NavLink>
-                        {
-                            !user?.email 
-                            &&
-                            <Box>
-                                <NavLink to="/login" style={{ color: "#000", textDecoration: "none" }}>
-                                    <Button color="secondary" >Login</Button>
-                                </NavLink>
-                                <NavLink to="/registration" style={{ color: "#000", textDecoration: "none" }}>
-                                    <Button color="secondary">Register</Button>
-                                </NavLink>
-                            </Box>
-                        }
+                        <Box sx={{ display: { xs: "none", md: 'flex' }, alignItems: "center" }}>
+                            <NavLink to="/home" style={{ color: "#000", textDecoration: "none" }}>
+                                <Button color="secondary" >Home</Button>
+                            </NavLink>
+                            <NavLink to="/explore-products" style={{ color: "#000", textDecoration: "none" }}>
+                                <Button color="secondary">Explore</Button>
+                            </NavLink>
+                            {
+                                !user?.email 
+                                &&
+                                <Box>
+                                    <NavLink to="/login" style={{ color: "#000", textDecoration: "none" }}>
+                                        <Button color="secondary" >Login</Button>
+                                    </NavLink>
+                                    <NavLink to="/registration" style={{ color: "#000", textDecoration: "none" }}>
+                                        <Button color="secondary">Register</Button>
+                                    </NavLink>
+                                </Box>
+                            }
+                        </Box>
 
                         <Box sx={{ flexGrow: 1 }} />
                         
