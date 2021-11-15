@@ -98,7 +98,7 @@ const ManageProducts = () => {
                             return (
                             <TableRow hover role="checkbox" tabIndex={-1} key={product.key}>
                                 <TableCell align="center">{index + 1}</TableCell>
-                                <TableCell align="center">{product?.title.slice(0, 50)} ...</TableCell>
+                                <TableCell align="center">{product?.title} ...</TableCell>
                                 <TableCell align="center">
                                     <img width="60" src={product?.imageUrl} alt="ProductImage" />
                                 </TableCell>

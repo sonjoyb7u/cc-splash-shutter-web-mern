@@ -14,7 +14,7 @@ const ShippingDetail = () => {
     const history = useHistory();
 
     useEffect(() => {
-        const url = `https://pure-castle-02044.herokuapp.com/product-detail/${id}`;
+        const url = `https://pure-castle-02044.herokuapp.com/home/product-detail/${id}`;
         fetch(url)
         .then(res => res.json())
         .then(result => {

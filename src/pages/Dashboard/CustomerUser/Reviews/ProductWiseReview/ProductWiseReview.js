@@ -80,7 +80,7 @@ const ProductWiseReview = () => {
                                 />
                                 <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
-                                    {order?.title?.slice(0, 60)} ... ...
+                                    {order?.title} ... ...
                                 </Typography>
                                 <Typography variant="subtitle" color="text.secondary">
                                     <strong>Price: </strong>&#2547; {order?.productPrice}

@@ -158,7 +158,7 @@ const ManageOrders = () => {
                                 <TableCell align="center">{allOrder?.email}</TableCell>
                                 <TableCell align="center">{allOrder?.phone}</TableCell>
                                 <TableCell align="center">{allOrder?.address}</TableCell>
-                                <TableCell align="center">{allOrder?.title.slice(0, 30)} ...</TableCell>
+                                <TableCell align="center">{allOrder?.title} ...</TableCell>
                                 <TableCell align="center">
                                     <img width="50" src={allOrder?.imageUrl} alt="ProductImage" />
                                 </TableCell>

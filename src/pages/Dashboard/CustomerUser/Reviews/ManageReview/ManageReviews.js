@@ -125,7 +125,7 @@ const ManageReviews = () => {
                                 <TableCell align="center">
                                     <img width="50" src={myReview?.imageUrl} alt="ProductImage" />
                                 </TableCell>
-                                <TableCell align="center">{myReview?.review.slice(0, 30)} ...</TableCell>
+                                <TableCell align="center">{myReview?.review} ...</TableCell>
                                 <TableCell align="center">
                                     <Rating name="read-only" value={parseInt(myReview?.rating)} readOnly />
                                 </TableCell>

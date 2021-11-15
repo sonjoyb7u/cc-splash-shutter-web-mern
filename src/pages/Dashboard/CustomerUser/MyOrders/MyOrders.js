@@ -126,7 +126,7 @@ const MyOrders = () => {
                                 <TableCell align="center">{myOrder?.email}</TableCell>
                                 <TableCell align="center">{myOrder?.phone}</TableCell>
                                 <TableCell align="center">{myOrder?.address}</TableCell>
-                                <TableCell align="center">{myOrder?.title.slice(0, 30)} ...</TableCell>
+                                <TableCell align="center">{myOrder?.title} ...</TableCell>
                                 <TableCell align="center">
                                     <img width="50" src={myOrder?.imageUrl} alt="ProductImage" />
                                 </TableCell>
