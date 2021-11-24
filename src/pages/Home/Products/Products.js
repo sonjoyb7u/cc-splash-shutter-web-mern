@@ -54,6 +54,7 @@ const Products = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        // const url = `http://localhost:5002/home/products`;
         const url = `https://pure-castle-02044.herokuapp.com/home/products`;
         fetch(url)
         .then(res => res.json())
@@ -62,6 +63,8 @@ const Products = () => {
         });
 
     }, []);
+
+    // console.log(products);
 
     return (
         <Container sx={{ mt: 20 }}>

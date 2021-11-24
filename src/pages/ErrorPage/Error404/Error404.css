@@ -1,0 +1,16 @@
+.error-404 .error-404-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.error-404-btn button {
+  min-width: 180px;
+  background-color: #fa5624;
+  border: transparent;
+  outline: none;
+  padding: 15px 30px;
+}
+
+.error-404-btn button:hover {
+  background-color: #fa5624;
+}

@@ -14,6 +14,7 @@ import AuthProvider from './assets/contexts/AuthProvider';
 import PrivateRoute from './pages/Login/PrivateRoute/PrivateRoute';
 import PlaceOrder from './pages/Home/PlaceOrder/PlaceOrder';
 import ExploreProduct from './pages/Home/ExploreProduct/ExploreProduct';
+import Error404 from './pages/ErrorPage/Error404/Error404';
 
 
 function App() {
@@ -49,6 +50,9 @@ function App() {
               <Route exact path="/registration">
                 <Registration></Registration>
               </Route>
+              <Route path="*">
+                <Error404></Error404>
+            </Route>
             </Switch>
         </Router>
       </AuthProvider>

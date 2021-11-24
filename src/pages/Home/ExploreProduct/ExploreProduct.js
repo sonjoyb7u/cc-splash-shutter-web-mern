@@ -17,7 +17,7 @@ const ExploreProduct = () => {
             setExploreProducts(result);
         });
 
-    }, []);
+    }, [exploreProducts]);
 
     return (
         <>
