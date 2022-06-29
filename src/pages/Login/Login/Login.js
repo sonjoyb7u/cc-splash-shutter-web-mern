@@ -131,8 +131,8 @@ const Login = () => {
                                                 !isUserComing
                                                 &&
                                                 <form onSubmit={handleCustomLoginProcess} style={{ width: "100%" }}>
-                                                    <TextField name="email" onBlur={handleOnChangeBlurForm} placeholder="Enter Email" id="standard-basic" label="Email" variant="standard" sx={{ width: "80%", m: 1 }}/>
-                                                    <TextField name="password" onBlur={handleOnChangeBlurForm}  placeholder="Your Password" id="standard-basic" label="Password" variant="standard" sx={{ width: "80%", m: 1 }}/>
+                                                    <TextField type="email" name="email" onBlur={handleOnChangeBlurForm} placeholder="Enter Email" id="standard-basic" label="Email" variant="standard" sx={{ width: "80%", m: 1 }}/>
+                                                    <TextField type="password" name="password" onBlur={handleOnChangeBlurForm}  placeholder="Your Password" id="standard-basic" label="Password" variant="standard" sx={{ width: "80%", m: 1 }}/>
                                                     
                                                     <div>
                                                         <span style={{ color: "brown" }}>Forgot your password?</span>
