@@ -15,6 +15,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import logo from './../../../../assets/images/logo/logo_5_160x.png';
 import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import useAuth from '../../../../assets/hooks/useAuth';
+import adminImage from './../../../../assets/images/users/admin_user_1.jpg'
 
 //  Start Search bar handle process ... 
 const Search = styled('div')(({ theme }) => ({
@@ -305,11 +306,11 @@ const Navigation = () => {
                                         
                                         {/* <AccountCircle /> */}
 
-                                        <TootTip title={user?.displayName}>
+                                        <TootTip title={user?.displayName ?? 'Admin'}>
                                             <CardMedia
                                             component="img"
                                             sx={{ width: "40px", borderRadius: "50%" }}
-                                            image={user?.photoURL}
+                                            image={user?.photoURL ?? adminImage}
                                             />
                                         </TootTip>
                                     </IconButton>
@@ -320,7 +321,7 @@ const Navigation = () => {
                                 aria-label="show 17 new notifications"
                                 color="secondary"
                             >
-                                <Badge badgeContent={17} color="error">
+                                <Badge badgeContent={5} color="error">
                                     <ShoppingCartOutlinedIcon />
                                 </Badge>
                             </IconButton>
